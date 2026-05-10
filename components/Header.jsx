@@ -23,30 +23,24 @@ const Header = () => {
     return (
         <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-10 py-3 border-b border-white/7 backdrop-blur-xl">
             <Link href={"/"} className="font-bold text-xl tracking-tight">
-                <Image src={'/logo2.png'}
+                <Image src={'/logo2.svg'}
                     alt="InterviewXpert"
                     width={350}
                     height={350}
-                    className="h-16 w-auto" />
+                    className="h-17 w-auto" />
             </Link>
 
-            {/* redirection logic */}
-
             <div className="flex items-center gap-3">
-
-
                 {!isSignedIn ? (
                     <>
-                        {/* Links */}
-                        {/* credits */}
                         <SignInButton mode='modal'>
                             <Button variant="ghost">
                                 Sign In
                             </Button>
                         </SignInButton>
 
-                        <SignUpButton >
-                            <Button variant="gold">
+                        <SignUpButton>
+                            <Button variant="green">
                                 Get Started
                             </Button>
                         </SignUpButton>
@@ -54,7 +48,6 @@ const Header = () => {
                 ) : (
                     <UserButton />
                 )}
-
             </div>
         </nav>
     );

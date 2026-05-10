@@ -19,7 +19,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        gold: "bg-amber-400 text-[#0a0a0b] hover:bg-amber-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(251,191,36,0.35",
+        green: "bg-green-500 text-[#080c09] hover:bg-green-400 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(34,197,94,0.35)]",
       },
       size: {
         default:
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        hero: "px-6 sm:px-8 py-2 sm:py-3.5 text-base rounded-x1"
+        hero: "px-6 sm:px-8 py-2 sm:py-3.5 text-base rounded-xl",
       },
     },
     defaultVariants: {
