@@ -56,7 +56,11 @@ function Slot(
 
   const mergedProps = mergeProps(childProps, props);
 
-  return (<Base {...mergedProps} ref={mergeRefs(childRef, ref)} />);
+  return React.createElement(Base, {
+    ...mergedProps,
+    // eslint-disable-next-line react-hooks/refs
+    ref: mergeRefs(childRef, ref)
+  });
 }
 
 export { Slot };

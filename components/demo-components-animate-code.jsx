@@ -1,25 +1,25 @@
 'use client';
 
 import {
-    Code,
-    CodeBlock,
-    CodeHeader,
+  Code,
+  CodeBlock,
+  CodeHeader,
 } from '@/components/animate-ui/components/animate/code';
 import { Code2, File } from 'lucide-react';
 
 
 
 export const CodeDemo = ({
-    duration,
-    delay,
-    writing,
-    cursor,
+  duration,
+  delay,
+  writing,
+  cursor,
 }) => {
-    return (
-        <Code
-            key={`${duration}-${delay}-${writing}-${cursor}`}
-            className="w-full sm:w-110 h-120 border-none"
-            code={`'use client';
+  return (
+    <Code
+      key={`${duration}-${delay}-${writing}-${cursor}`}
+      className="w-full sm:w-110 h-120 border-none bg-black"
+      code={`'use client';
 
 import * as React from 'react';
 
@@ -73,18 +73,18 @@ function InterviewXpert({
 }
 
 export default InterviewXpert;`}
-        >
-            <CodeHeader icon={Code2} copyButton>
-                use-fetch.jsx
-            </CodeHeader>
+    >
+      <CodeHeader icon={Code2} copyButton>
+        use-fetch.jsx
+      </CodeHeader>
 
-            <CodeBlock
-                cursor={cursor}
-                lang="jsx"
-                writing={writing}
-                duration={duration}
-                delay={delay}
-            />
-        </Code>
-    );
+      <CodeBlock
+        cursor={cursor}
+        lang="jsx"
+        writing={writing}
+        duration={duration}
+        delay={delay}
+      />
+    </Code>
+  );
 };

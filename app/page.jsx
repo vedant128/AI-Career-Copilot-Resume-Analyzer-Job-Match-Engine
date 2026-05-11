@@ -164,7 +164,7 @@ export default function Home() {
           <div className="col-span-12 md:col-span-4">
             <BentoCard
               icon="📹"
-              title="HD Video Calls"
+              title={<GrayTitle>HD Video Calls</GrayTitle>}
               desc="Powered by Stream. Screen sharing, recording, and instant playback links — all built in."
             >
               <MockUI rows={3} />
@@ -174,7 +174,7 @@ export default function Home() {
           <div className="col-span-12 md:col-span-4">
             <BentoCard
               icon="💬"
-              title="Persistent Chat"
+              title={<GrayTitle>Persistent Chat</GrayTitle>}
               desc="Message your interviewer before and after the call. Share resources, prep notes, and follow-ups in one thread."
             />
           </div>
@@ -182,7 +182,7 @@ export default function Home() {
           <div className="col-span-12 md:col-span-4">
             <BentoCard
               icon="🔒"
-              title="Security by Arcjet"
+              title={<GrayTitle>Security by Arcjet</GrayTitle>}
               desc="Bot protection, rate limiting, and abuse prevention baked into every API route."
             />
           </div>

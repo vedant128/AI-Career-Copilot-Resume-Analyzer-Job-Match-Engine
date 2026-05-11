@@ -18,14 +18,17 @@ function StarLayer({
   count = 1000,
   size = 1,
   transition = { repeat: Infinity, duration: 50, ease: 'linear' },
-  starColor = '#fff',
+  starColor = '#ffffff',
   className,
   ...props
 }) {
   const [boxShadow, setBoxShadow] = React.useState('');
 
   React.useEffect(() => {
-    setBoxShadow(generateStars(count, starColor));
+    const timer = setTimeout(() => {
+      setBoxShadow(generateStars(count, starColor));
+    }, 0);
+    return () => clearTimeout(timer);
   }, [count, starColor]);
 
   return (
@@ -59,7 +62,7 @@ function StarsBackground({
   factor = 0.05,
   speed = 50,
   transition = { stiffness: 50, damping: 20 },
-  starColor = '#fff',
+  starColor = '#ffffff',
   pointerEvents = true,
   ...props
 }) {
@@ -82,7 +85,7 @@ function StarsBackground({
     <div
       data-slot="stars-background"
       className={cn(
-        'relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]',
+        'relative size-full overflow-hidden bg-black',
         className
       )}
       onMouseMove={handleMouseMove}

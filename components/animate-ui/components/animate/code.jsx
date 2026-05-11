@@ -19,7 +19,7 @@ function Code({
     <CodeProvider value={{ code }}>
       <div
         className={cn(
-          'relative flex flex-col overflow-hidden border bg-accent/50 rounded-lg',
+          'relative flex flex-col overflow-hidden border border-white/10 bg-black rounded-lg',
           className
         )}
         {...props} />
@@ -39,7 +39,7 @@ function CodeHeader({
   return (
     <div
       className={cn(
-        'bg-accent shrink-0 gap-x-2 border-b border-border/75 dark:border-border/50 text-sm flex text-muted-foreground items-center px-4 w-full h-10',
+        'bg-[#0f0f11] shrink-0 gap-x-2 border-b border-white/10 text-sm flex text-stone-400 items-center px-4 w-full h-10',
         className
       )}
       {...props}>
@@ -61,14 +61,14 @@ function CodeBlock({
   className,
   ...props
 }) {
-  const { resolvedTheme } = useTheme();
+
   const { code } = useCode();
   const scrollRef = React.useRef(null);
 
   return (
     <CodeBlockPrimitive
       ref={scrollRef}
-      theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+      theme="dark"
       scrollContainerRef={scrollRef}
       className={cn(
         'relative text-sm p-4 overflow-auto',

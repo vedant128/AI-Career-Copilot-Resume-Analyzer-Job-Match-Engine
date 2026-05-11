@@ -59,10 +59,12 @@ function CodeBlock({
 
   React.useEffect(() => {
     if (!writing) {
-      setVisibleCode(code);
-      onDone?.();
-      onWrite?.({ index: code.length, length: code.length, done: true });
-      return;
+      const timer = setTimeout(() => {
+        setVisibleCode(code);
+        onDone?.();
+        onWrite?.({ index: code.length, length: code.length, done: true });
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     if (!code.length || !isInView) return;
