@@ -90,7 +90,7 @@ export default function SlotPicker({
 
     if (!availability) {
         return (
-            <div className="bg-[#0f0f11] border border-white/10 rounded-2xl p-8 text-center flex flex-col items-center gap-2">
+            <div className="bg-[#0f0f11] border border-white/10 rounded-2xl p-20 text-center flex flex-col items-center gap-2">
                 <span className="text-2xl">🕐</span>
                 <p className="text-sm text-stone-500">No availability set yet.</p>
                 <p className="text-xs text-stone-700">Check back later.</p>
@@ -131,7 +131,7 @@ export default function SlotPicker({
                     </div>
 
                     {/* Date tabs */}
-                    <div className="flex gap-2 overflow-x-auto pb-0.5 scrollbar-none -mx-1 px-1">
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5 -mx-1 px-1 ">
                         {dates.map((date) => {
                             const label = formatDateTab(date);
                             const active =

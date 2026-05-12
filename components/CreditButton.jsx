@@ -1,33 +1,35 @@
-import Link from "next/link";
-import { Button } from "./ui/button";
+"use client";
+
+import { useState } from "react";
 import { Coins } from "lucide-react";
+import UpgradeModal from "./UpgradeModal";
+import { Button } from "./ui/button";
 
-const CreditButton = ({ role, credits }) => {
-    // If the user hasn't set their role yet (e.g. during onboarding), don't show the credit button
-    if (!role) return null;
+export default function CreditButton({ role, credits }) {
+    const [open, setOpen] = useState(false);
 
-    const isInterviewer = role === "INTERVIEWER";
-    
-    // Interviewers don't strictly "buy" credits in the same way, 
-    // but they earn them or have a balance. 
-    // Interviewees buy them to book sessions.
-    const href = isInterviewer ? "/dashboard" : "/pricing";
+    const handleClick = () => {
+        if (role === "INTERVIEWER") {
+            window.location.href = "/dashboard";
+        } else {
+            setOpen(true);
+        }
+    };
 
     return (
-        <Button 
-            variant="secondary" 
-            size="sm" 
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10"
-            asChild
-        >
-            <Link href={href}>
-                <Coins size={14} className="text-amber-400" />
-                <span className="font-medium text-stone-200">
-                    {credits} {credits === 1 ? "Credit" : "Credits"}
+        <>
+            <Button
+                variant="outline"
+                className="border-green-400/20 text-green-400 cursor-pointer bg-black hover:bg-black hover:text-white"
+                onClick={handleClick}
+            >
+                <Coins size={14} />
+                <span className=" opacity-70">
+                    {credits} {role === "INTERVIEWER" ? "Earned" : "Credits"}
                 </span>
-            </Link>
-        </Button>
-    );
-};
+            </Button>
 
-export default CreditButton;
+            <UpgradeModal open={open} onOpenChange={setOpen} />
+        </>
+    );
+}

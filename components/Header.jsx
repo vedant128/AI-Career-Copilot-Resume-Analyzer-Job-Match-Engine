@@ -18,7 +18,7 @@ const Header = async () => {
                     alt="InterviewXpert Logo"
                     width={100}
                     height={100}
-                    className="h-11 w-auto"
+                    className="h-16 w-auto"
                 />
             </Link>
 

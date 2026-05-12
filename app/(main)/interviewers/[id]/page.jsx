@@ -159,10 +159,10 @@ export default async function InterviewerProfilePage({ params }) {
                 </div>
 
                 {/* ── RIGHT — sticky slot picker ── */}
-                <div className="lg:col-span-2 lg:sticky top-24">
+                <div className="lg:col-span-2 lg:sticky top-24 " >
                     <SlotPicker
                         interviewer={interviewer}
-                        interviewerCredits={interviewer.creditRate ?? 10}
+                        interviewerCredits={interviewer.creditRate ?? 1}
                         userCredits={dbUser.credits}
                     />
                 </div>
