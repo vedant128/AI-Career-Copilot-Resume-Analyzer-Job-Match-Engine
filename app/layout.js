@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{ theme: dark }}>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${lora.variable} ${dmSans.variable} font-sans`}>
+        <body className={`${lora.variable} ${dmSans.variable} font-sans bg-black text-white`}>
             <Header />
             <main className="min-h-screen">
               {children}
