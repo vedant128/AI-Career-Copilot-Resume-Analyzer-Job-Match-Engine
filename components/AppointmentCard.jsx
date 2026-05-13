@@ -167,7 +167,7 @@ export function AppointmentCard({ booking, mode, isPast = false }) {
                             </Button>
                         )}
 
-                        {recordingUrl && has?.({ plan: "pro" }) && (
+                        {recordingUrl ? (
                             <Button variant="outline" size="sm" className="gap-2" asChild>
                                 <a
                                     href={recordingUrl}
@@ -177,10 +177,16 @@ export function AppointmentCard({ booking, mode, isPast = false }) {
                                     📹 Recording
                                 </a>
                             </Button>
+                        ) : (
+                            isPast && status === "COMPLETED" && (
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/5 bg-white/5 text-[10px] text-stone-500">
+                                    <Clock size={10} className="animate-pulse" />
+                                    Processing recording...
+                                </div>
+                            )
                         )}
 
-                        {feedback &&
-                            (has?.({ plan: "starter" }) || has?.({ plan: "pro" })) && (
+                        {feedback && (
                                 <>
                                     <Button
                                         variant="outline"

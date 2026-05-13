@@ -146,11 +146,11 @@ export async function POST(request) {
 
             // 3. Generate feedback via Gemini
             console.log(
-                `[stream-webhook] Sending transcript to Gemini (gemini-2.5-flash-lite)...`
+                `[stream-webhook] Sending transcript to Gemini (gemini-2.0-flash-lite)...`
             );
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({
-                model: "gemini-2.5-flash-lite",
+                model: "gemini-2.0-flash",
             });
             const categories =
                 booking.interviewer.categories?.join(", ") ?? "General";
@@ -251,4 +251,4 @@ Analyze the candidate's performance. Respond ONLY with a valid JSON object, no m
         // Always 200 — non-2xx triggers Stream retries, making the race worse
         return Response.json({ ok: true });
     }
-}
+} 
