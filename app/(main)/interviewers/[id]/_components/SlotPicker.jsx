@@ -47,14 +47,19 @@ export default function SlotPicker({
     const canAfford = userCredits >= interviewerCredits;
 
     const slots = useMemo(() => {
-        if (!availability) return [];
-        return generateSlots(
+        if (!availability) {
+            console.log("SlotPicker: No availability found for this interviewer.");
+            return [];
+        }
+        const generated = generateSlots(
             selectedDate,
             availability.startTime,
             availability.endTime,
             interviewer.bookingsAsInterviewer ?? [],
             SLOT_DURATION_MINUTES
         );
+        console.log("SlotPicker: Generated slots for", selectedDate.toDateString(), generated);
+        return generated;
     }, [selectedDate, availability, interviewer.bookingsAsInterviewer]);
 
     useEffect(() => {
@@ -69,8 +74,13 @@ export default function SlotPicker({
     };
 
     const handleSlotClick = (slot) => {
-        if (!slot.available) return;
+        console.log("SlotPicker: Clicked slot", slot);
+        if (!slot.available) {
+            console.log("SlotPicker: Slot is not available (booked).");
+            return;
+        }
         if (!canAfford) {
+            console.log("SlotPicker: User cannot afford this slot. Opening upgrade modal.");
             setUpgradeOpen(true);
             return;
         }

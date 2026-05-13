@@ -106,7 +106,7 @@ export default function PricingSection() {
                                     Default plan
                                 </Button>
                             ) : (
-                                <SignInButton mode="modal">
+                                <SignInButton mode="modal" asChild>
                                     <Button variant="outline" className="w-full border-[#1a2b1b] text-[#F0F7F1] hover:border-green-400/30 hover:text-green-400">
                                         Get started free
                                     </Button>
@@ -116,6 +116,7 @@ export default function PricingSection() {
                             <CheckoutButton
                                 planId={plan.planId}
                                 planPeriod="month"
+                                asChild
                                 checkoutProps={{
                                     appearance: {
                                         elements: {
@@ -136,7 +137,7 @@ export default function PricingSection() {
                                 </Button>
                             </CheckoutButton>
                         ) : (
-                            <SignInButton mode="modal">
+                            <SignInButton mode="modal" asChild>
                                 <Button
                                     variant={plan.featured ? "green" : "outline"}
                                     className={`w-full ${!plan.featured ? "border-[#1a2b1b] text-[#F0F7F1] hover:border-green-400/30 hover:text-green-400" : ""}`}
