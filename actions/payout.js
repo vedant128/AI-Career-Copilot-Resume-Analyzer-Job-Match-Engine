@@ -27,3 +27,19 @@ export const approvePayout = async ({ payoutId, adminPassword }) => {
 
     return { success: true };
 };
+
+export const getPayout = async (id) => {
+    try {
+        return await db.payout.findUnique({
+            where: { id },
+            include: {
+                interviewer: {
+                    select: { name: true, email: true, imageUrl: true }
+                }
+            }
+        });
+    } catch (err) {
+        console.error("getPayout error:", err);
+        return null;
+    }
+};

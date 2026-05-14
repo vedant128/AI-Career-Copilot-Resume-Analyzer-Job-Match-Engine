@@ -41,9 +41,28 @@ export default function CallUI({
     token,
     currentUser,
 }) {
-    const { useCallCallingState } = useCallStateHooks();
+    const { useCallCallingState, useMicrophoneState, useCameraState } = useCallStateHooks();
     const call = useCall();
     const callingState = useCallCallingState();
+    const { hasPermission: hasMicPermission, devices: micDevices } = useMicrophoneState();
+    const { hasPermission: hasCamPermission, devices: camDevices } = useCameraState();
+
+    // Check for device permissions/availability
+    useEffect(() => {
+        if (callingState === CallingState.JOINED) {
+            if (hasMicPermission === false && micDevices?.length > 0) {
+                toast.error("Microphone access denied. Please enable it in your browser settings.");
+            } else if (micDevices?.length === 0) {
+                toast.warning("No microphone detected. Others won't be able to hear you.");
+            }
+
+            if (hasCamPermission === false && camDevices?.length > 0) {
+                toast.error("Camera access denied. Please enable it in your browser settings.");
+            } else if (camDevices?.length === 0) {
+                toast.warning("No camera detected. Others won't be able to see you.");
+            }
+        }
+    }, [callingState, hasMicPermission, micDevices, hasCamPermission, camDevices]);
 
     useEffect(() => {
         console.log("CallUI Context:", {
@@ -74,14 +93,11 @@ export default function CallUI({
         try {
             if (isRecording) {
                 await call.stopRecording();
-                toast.success("Recording stopped");
             } else {
                 await call.startRecording();
-                toast.success("Recording started");
             }
         } catch (err) {
             console.error("Recording toggle failed:", err);
-            toast.error("Failed to toggle recording");
         } finally {
             setRecordingLoading(false);
         }
@@ -173,7 +189,7 @@ export default function CallUI({
                     {isInterviewer ? (
                         <Badge
                             variant="outline"
-                            className="border-amber-400/20 bg-amber-400/5 text-amber-400 text-xs"
+                            className="border-green-400/20 bg-green-400/5 text-green-400 text-xs"
                         >
                             Interviewer
                         </Badge>
@@ -197,24 +213,20 @@ export default function CallUI({
                     </div>
                 )}
 
-                {/* Record button — interviewer only */}
-                {isInterviewer && (
+                {/* Optional: Keep the top bar button but make it more distinct or remove it if using RecordButton in controls */}
+                {isInterviewer && !isRecording && (
                     <button
                         type="button"
                         onClick={handleToggleRecording}
                         disabled={recordingLoading}
-                        className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-all ${
-                            isRecording
-                                ? "border-red-500/40 bg-red-500/10 text-red-400 animate-pulse"
-                                : "border-white/10 text-stone-400 hover:border-white/20 hover:text-stone-200"
-                        } disabled:opacity-50`}
+                        className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 text-stone-400 hover:border-white/20 hover:text-stone-200 transition-all disabled:opacity-50"
                     >
                         {recordingLoading ? (
                             <Loader2 size={12} className="animate-spin" />
                         ) : (
-                            <div className={`w-2 h-2 rounded-full ${isRecording ? "bg-red-500" : "bg-stone-600"}`} />
+                            <div className="w-2 h-2 rounded-full bg-stone-600" />
                         )}
-                        {isRecording ? "Stop Recording" : "Start Recording"}
+                        Start Recording
                     </button>
                 )}
             </div>
@@ -249,11 +261,11 @@ export default function CallUI({
                             type="button"
                             onClick={() => setActiveTab("chat")}
                             className={`flex-1 flex items-center justify-center gap-2 py-3 text-xs font-medium transition-colors ${activeTab === "chat"
-                                ? "text-amber-400 border-b-2 border-amber-400"
+                                ? "text-green-400 border-b-2 border-green-400"
                                 : "text-stone-500 hover:text-stone-300"
                                 }`}
                         >
-                            <MessageSquare size={13} />
+                            <MessageSquare className="text-green" size={13} />
                             Chat
                         </button>
 
@@ -263,7 +275,7 @@ export default function CallUI({
                                 type="button"
                                 onClick={() => setActiveTab("ai")}
                                 className={`flex-1 flex items-center justify-center gap-2 py-3 text-xs font-medium transition-colors ${activeTab === "ai"
-                                    ? "text-amber-400 border-b-2 border-amber-400"
+                                    ? "text-green-400 border-b-2 border-green-400"
                                     : "text-stone-500 hover:text-stone-300"
                                     }`}
                             >

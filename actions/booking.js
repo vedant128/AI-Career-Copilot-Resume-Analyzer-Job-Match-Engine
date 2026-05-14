@@ -6,6 +6,11 @@ import { StreamClient } from "@stream-io/node-sdk";
 import { revalidatePath } from "next/cache";
 import { request } from "@arcjet/next";
 import { createRateLimiter, checkRateLimit } from "@/lib/arcjet";
+import { Resend } from "resend";
+import { render } from "@react-email/render";
+import { BookingConfirmationEmail } from "@/emails/BookingConfirmationEmail";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // 5 booking attempts per hour — generous enough for real users,
 // tight enough to block automated abuse
@@ -175,6 +180,35 @@ export const bookSlot = async ({ interviewerId, startTime, endTime }) => {
 
         revalidatePath(`/interviewers/${interviewerId}`);
         revalidatePath("/dashboard");
+        revalidatePath("/appointments");
+
+        // Fire notification email to interviewer — non-blocking
+        try {
+            const joinUrl = `${process.env.NEXT_PUBLIC_APP_URL}/call/${streamCallId}`;
+            const html = await render(
+                BookingConfirmationEmail({
+                    interviewerName: interviewer.name ?? "Interviewer",
+                    intervieweeName: dbUser.name ?? "Interviewee",
+                    startTime: new Date(startTime).toLocaleString("en-US", {
+                        weekday: "long",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                    }),
+                    joinUrl,
+                })
+            );
+
+            await resend.emails.send({
+                from: "Prept <onboarding@resend.dev>",
+                to: interviewer.email,
+                subject: `New Interview Booked — ${dbUser.name}`,
+                html,
+            });
+        } catch (emailErr) {
+            console.error("Booking confirmation email failed:", emailErr);
+        }
 
         return { success: true, bookingId: booking.id, streamCallId };
     } catch (err) {

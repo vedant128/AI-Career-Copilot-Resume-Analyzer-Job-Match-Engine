@@ -71,7 +71,7 @@ export function WithdrawalRequestEmail({
                             {k}:{" "}
                             <span
                                 style={{
-                                    color: k === "Net payout" ? "#d97706" : "#111827",
+                                    color: k === "Net payout" ? "#05a100ff" : "#111827",
                                     fontWeight: k === "Net payout" ? "700" : "400",
                                 }}
                             >
@@ -85,7 +85,7 @@ export function WithdrawalRequestEmail({
                     <Button
                         href={reviewUrl}
                         style={{
-                            backgroundColor: "#f59e0b",
+                            backgroundColor: "#05a100ff",
                             color: "#ffffff",
                             fontSize: "14px",
                             fontWeight: "700",
@@ -100,4 +100,4 @@ export function WithdrawalRequestEmail({
             </Body>
         </Html>
     );
-}
+}                                                    

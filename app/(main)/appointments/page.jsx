@@ -14,7 +14,7 @@ export default async function MyAppointmentsPage() {
     const appointments = await getIntervieweeAppointments();
     const now = new Date();
     const scheduled = appointments.filter(
-        (a) => a.status === "SCHEDULED" && new Date(a.startTime) > now
+        (a) => a.status === "SCHEDULED" && new Date(a.endTime) > now
     );
     const past = appointments.filter(
         (a) => a.status !== "SCHEDULED" || new Date(a.endTime) <= now

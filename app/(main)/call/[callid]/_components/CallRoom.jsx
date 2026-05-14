@@ -45,6 +45,9 @@ export default function CallRoom({
 
         const callInstance = client.call("default", callId);
 
+        // Disable speaking while muted detection to avoid console errors if mic is not available/blocked
+        callInstance.microphone.disableSpeakingWhileMutedNotification();
+
         callInstance
             .join({ create: false })
             .then(() => {
@@ -76,7 +79,7 @@ export default function CallRoom({
     if (!videoClient || !call) {
         return (
             <div className="min-h-screen bg-[#0a0a0b] flex flex-col items-center justify-center gap-3">
-                <Loader2 size={28} className="text-amber-400 animate-spin" />
+                <Loader2 size={28} className="text-green-400 animate-spin" />
                 <p className="text-stone-500 text-sm font-light">Connecting to call…</p>
             </div>
         );
