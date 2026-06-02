@@ -38,6 +38,7 @@ const skills = [
 function InterviewXpert({
   role,
   confidence,
+  placed,
 }: InterviewProps) {
 
   const panicLevel =
