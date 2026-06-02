@@ -1,6 +1,6 @@
-# Prept — AI Career Copilot & Mock Interview Platform
+# InterviewXpert — AI Career Copilot & Mock Interview Platform
 
-Prept is a modern, AI-powered platform designed to revolutionize the way candidates prepare for interviews. It connects interviewees with expert mentors and provides state-of-the-art tools for practicing, recording, and receiving feedback on mock interview sessions.
+InterviewXpert is a modern, AI-powered platform designed to revolutionize the way candidates prepare for interviews. It connects interviewees with expert mentors and provides state-of-the-art tools for practicing, recording, and receiving feedback on mock interview sessions.
 
 ## 🚀 Key Features
 

@@ -35,6 +35,7 @@ export const getCallData = async (callId) => {
 
     const isInterviewer = booking.interviewer.clerkUserId === user.id;
     const isInterviewee = booking.interviewee.clerkUserId === user.id;
+    
     if (!isInterviewer && !isInterviewee) return { error: "Forbidden" };
 
     const streamClient = new StreamClient(
